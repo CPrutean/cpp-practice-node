@@ -34,7 +34,7 @@ COPY docker/deps.txt /tmp/deps.txt
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-        $(grep -vE '^[[:space:]]*(#|$)' /tmp/deps.txt) \
+        $(tr -d '\r' < /tmp/deps.txt | grep -vE '^[[:space:]]*(#|$)') \
         sudo \
         git \
         ca-certificates && \
@@ -52,7 +52,7 @@ RUN (userdel -r ubuntu 2>/dev/null || true) && \
     chmod 0440 /etc/sudoers.d/user
 
 COPY docker/container.bashrc /home/${USERNAME}/.bashrc
-RUN chown ${USERNAME}:${USER_GID} /home/${USERNAME}/.bashrc
+RUN sed -i 's/\r$//' /home/${USERNAME}/.bashrc && chown ${USERNAME}:${USER_GID} /home/${USERNAME}/.bashrc
 
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}/cpp-workshop
