@@ -1,0 +1,6 @@
+py_node:
+  ros__parameters:
+    publish_topic: py_to_cpp
+    subscribe_topic: cpp_to_py
+    message_prefix: ping
+    publish_rate_hz: 1.0

@@ -1,0 +1,11 @@
+# Build + test dependencies (Ubuntu 24.04 / ROS 2 Jazzy).
+# Read by docker/Dockerfile; blank lines and '#' comments are ignored.
+# Dev-only tooling (clangd, clang-format, ...) stays inline in the Dockerfile.
+build-essential
+cmake
+ninja-build
+pkg-config
+ros-dev-tools
+ros-jazzy-ament-cmake-gtest
+libgtest-dev
+libgmock-dev

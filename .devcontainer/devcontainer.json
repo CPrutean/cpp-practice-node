@@ -1,0 +1,21 @@
+{
+  "name": "cpp-workshop (ROS 2 Jazzy)",
+  "dockerComposeFile": "../docker/docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/home/trickfire/cpp-workshop",
+  "remoteUser": "trickfire",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-vscode.cmake-tools",
+        "ms-iot.vscode-ros"
+      ],
+      "settings": {
+        "clangd.arguments": ["--compile-commands-dir=${workspaceFolder}/build/cpp_node_template"]
+      }
+    }
+  }
+}

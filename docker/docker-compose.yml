@@ -1,0 +1,59 @@
+name: cpp-workshop
+
+# --------------------------------------------------------------------------------------------
+#   dev   - interactive shell with the repo mounted and editor tooling (clangd, clang-format)
+#   test  - one-shot colcon build + colcon test, then exits with the test result
+#
+#   docker compose -f docker/docker-compose.yml run --rm dev
+#   docker compose -f docker/docker-compose.yml run --rm test
+# --------------------------------------------------------------------------------------------
+
+x-base: &base
+  build:
+    context: ..
+    dockerfile: docker/Dockerfile
+    args:
+      USER_UID: ${USER_UID:-1000}
+      USER_GID: ${USER_GID:-1000}
+      TZ: ${TZ:-UTC}
+  working_dir: /home/trickfire/cpp-workshop
+  volumes:
+    - ..:/home/trickfire/cpp-workshop
+  environment:
+    TZ: ${TZ:-UTC}
+    ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-0}
+
+services:
+  dev:
+    <<: *base
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+        TZ: ${TZ:-UTC}
+    image: cpp-workshop:dev
+    container_name: cpp-workshop-dev
+    stdin_open: true
+    tty: true
+    # Needed for ROS 2 discovery between containers/host on Linux; ignored on Docker Desktop.
+    network_mode: ${ROS_NETWORK_MODE:-bridge}
+
+  test:
+    <<: *base
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runtime
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+        TZ: ${TZ:-UTC}
+    image: cpp-workshop:latest
+    command: >
+      bash -lc "source /opt/ros/jazzy/setup.bash &&
+      colcon build --event-handlers console_direct+ &&
+      colcon test --event-handlers console_direct+ &&
+      colcon test-result --verbose"

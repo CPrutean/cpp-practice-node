@@ -1,0 +1,12 @@
+BasedOnStyle: Google
+ColumnLimit: 100
+IndentWidth: 2
+AccessModifierOffset: -2
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterFunction: true
+  AfterNamespace: false
+  BeforeElse: false
+ConstructorInitializerIndentWidth: 0
+AllowShortFunctionsOnASingleLine: InlineOnly
