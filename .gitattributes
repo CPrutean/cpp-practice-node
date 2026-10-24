@@ -1,0 +1,2 @@
+# Everything runs inside a Linux container: keep LF even on Windows checkouts.
+* text=auto eol=lf
