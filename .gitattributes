@@ -1,0 +1,8 @@
+# Files copied into the Docker image / run on Linux must keep LF endings,
+# even when checked out on Windows with core.autocrlf=true.
+* text=auto eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
+*.bashrc text eol=lf
+Dockerfile text eol=lf
+*.yml text eol=lf
